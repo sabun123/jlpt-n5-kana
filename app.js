@@ -15,6 +15,7 @@ class KanaGame {
         this.infoButton = document.getElementById('infoButton');
         this.popup = document.getElementById('wordListPopup');
         this.closePopupButton = document.getElementById('closePopup');
+        this.languageSelect = document.getElementById('languageSelect');
 
         // Footer copyright
         const currentYear = new Date().getFullYear();
@@ -23,6 +24,7 @@ class KanaGame {
         
         // Initialize speech synthesis voices
         this.initializeVoices();
+        this.initializeLanguageOptions();
         this.initializeEventListeners();
         this.initializeWordList();
         this.showNextKana();
@@ -43,6 +45,10 @@ class KanaGame {
         this.translationToggle.addEventListener('click', () => {
             const translationElement = document.getElementById('translation');
             translationElement.classList.toggle('hidden');
+            // Play the current kana when IPA is toggled
+            if (!translationElement.classList.contains('hidden')) {
+                this.playKana(this.currentKana.word);
+            }
         });
 
         // Add popup event listeners
@@ -67,6 +73,24 @@ class KanaGame {
                 this.popup.classList.add('hidden');
             }
         });
+
+        // Add language change handler
+        this.languageSelect.addEventListener('change', () => {
+            this.currentLanguage = this.languageSelect.value;
+            this.showNextKana(); // Refresh with new language
+            
+            // Show announcement for language change
+            const announcement = document.createElement('div');
+            const languageName = this.languageSelect.options[this.languageSelect.selectedIndex].text;
+            announcement.className = 'announcement';
+            announcement.textContent = `Switched to ${languageName} pronunciations`;
+            document.body.appendChild(announcement);
+            announcement.addEventListener('animationend', (e) => {
+                if (e.animationName === 'fadeOut') {
+                    announcement.remove();
+                }
+            });
+        });
     }
 
     initializeVoices() {
@@ -79,6 +103,27 @@ class KanaGame {
                 this.voices = window.speechSynthesis.getVoices();
             });
         }
+    }
+
+    initializeLanguageOptions() {
+        // Get available languages from the first kana entry
+        const languages = {
+            'en': 'EN',
+            'vn': 'VN',
+            'my': 'MY'
+        };
+        
+        const languageSelect = this.languageSelect;
+        languageSelect.innerHTML = ''; // Clear existing options
+        
+        // Create and append options
+        Object.entries(languages).forEach(([code, label]) => {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = label;
+            option.selected = code === this.currentLanguage;
+            languageSelect.appendChild(option);
+        });
     }
 
     initializeWordList() {
@@ -231,7 +276,7 @@ class KanaGame {
         return anyJapaneseVoice;
     }
 
-    async playReading(reading) {
+    async playKana(kana) {
         if (!window.speechSynthesis) {
             console.error('Speech synthesis not supported');
             return;
@@ -240,21 +285,19 @@ class KanaGame {
         // Cancel any ongoing speech
         window.speechSynthesis.cancel();
 
-        const utterance = new SpeechSynthesisUtterance(reading);
+        const utterance = new SpeechSynthesisUtterance(kana);
         utterance.lang = 'ja-JP';
         
         // Optimize voice settings for better quality
-        utterance.rate = 1;    // Slightly slower for clarity
-        utterance.pitch = 1.0;   // Slightly deeper voice
-        utterance.volume = 1.0;  // Full volume
+        utterance.rate = 0.8;    // Slower for clearer pronunciation
+        utterance.pitch = 1.0;   
+        utterance.volume = 1.0;  
 
-        // Get the best available Japanese voice
         const bestVoice = this.getBestJapaneseVoice();
         if (bestVoice) {
             utterance.voice = bestVoice;
         }
 
-        // Create a promise to handle the speech completion
         return new Promise((resolve) => {
             utterance.onend = () => resolve();
             utterance.onerror = () => resolve();
@@ -264,8 +307,6 @@ class KanaGame {
 
     handleReadingSelection(button, reading) {
         if (button.classList.contains('disabled')) return;
-
-        this.playReading(reading);
 
         const showAnnouncement = (message, isCorrect) => {
             const announcement = document.createElement('div');
@@ -288,6 +329,8 @@ class KanaGame {
             button.setAttribute('aria-pressed', 'true');
             this.selectedReadings.add(reading);
             
+            // Play the kana character when correct
+            this.playKana(this.currentKana.word);
             showAnnouncement('Correct reading!', true);
 
             if (this.selectedReadings.size === this.correctReadings.size) {
@@ -309,6 +352,9 @@ class KanaGame {
             showAnnouncement('Incorrect reading, try again', false);
         }
     }
+
+    // Remove or comment out the old playReading method as it's no longer needed
+    // async playReading(reading) { ... }
 }
 
 // Initialize the game when the page loads

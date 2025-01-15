@@ -559,3 +559,23 @@ body.dark-mode .reading-option.incorrect,
         font-size: 6rem;
     }
 }
+
+#languageSelect {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.dark-mode #languageSelect {
+    background: #333;
+    border-color: #555;
+}
+
+#languageSelect:focus {
+    outline: 2px solid var(--text-color);
+    outline-offset: 2px;
+}
