@@ -1,5 +1,4 @@
 const data = [
-    // Hiragana
     {
         word: "あ",
         ipa_pronunciation: ["a̠"],
@@ -414,8 +413,303 @@ const data = [
             my: ["n/m/ng"]
         },
     },
-
-    // Katakana
+    {
+        word: "きゃ",
+        ipa_pronunciation: ["kʲa̠"],
+        readings: {
+            en: ["kya"],
+            vn: ["kyă"],
+            my: ["kya"]
+        },
+    },
+    {
+        word: "きゅ",
+        ipa_pronunciation: ["kʲɯᵝ", "kʲu̥"],
+        readings: {
+            en: ["kyu"],
+            vn: ["kyư"],
+            my: ["kyu"]
+        },
+    },
+    {
+        word: "きょ",
+        ipa_pronunciation: ["kʲo̞"],
+        readings: {
+            en: ["kyo"],
+            vn: ["kyô"],
+            my: ["kyo"]
+        },
+    },
+    {
+        word: "しゃ",
+        ipa_pronunciation: ["ɕa̠"],
+        readings: {
+            en: ["sha"],
+            vn: ["sá"],
+            my: ["sya"]
+        },
+    },
+    {
+        word: "しゅ",
+        ipa_pronunciation: ["ɕɯᵝ", "ɕu̥"],
+        readings: {
+            en: ["shu"],
+            vn: ["su"],
+            my: ["shu"]
+        },
+    },
+    {
+        word: "しょ",
+        ipa_pronunciation: ["ɕo̞"],
+        readings: {
+            en: ["sho"],
+            vn: ["so"],
+            my: ["sho"]
+        },
+    },
+    {
+        word: "ちゃ",
+        ipa_pronunciation: ["tɕa̠"],
+        readings: {
+            en: ["cha"],
+            vn: ["chà"],
+            my: ["cha"]
+        },
+    },
+    {
+        word: "ちゅ",
+        ipa_pronunciation: ["tɕɯᵝ", "tɕu̥"],
+        readings: {
+            en: ["chu"],
+            vn: ["chư"],
+            my: ["chu"]
+        },
+    },
+    {
+        word: "ちょ",
+        ipa_pronunciation: ["tɕo̞"],
+        readings: {
+            en: ["cho"],
+            vn: ["chô"],
+            my: ["cho"]
+        },
+    },
+    {
+        word: "にゃ",
+        ipa_pronunciation: ["ɲa̠"],
+        readings: {
+            en: ["nya"],
+            vn: ["nhă"],
+            my: ["nya"]
+        },
+    },
+    {
+        word: "にゅ",
+        ipa_pronunciation: ["ɲɯᵝ", "ɲu̥"],
+        readings: {
+            en: ["nyu"],
+            vn: ["như"],
+            my: ["nyu"]
+        },
+    },
+    {
+        word: "にょ",
+        ipa_pronunciation: ["ɲo̞"],
+        readings: {
+            en: ["nyo"],
+            vn: ["nhô"],
+            my: ["nyo"]
+        },
+    },
+    {
+        word: "ひゃ",
+        ipa_pronunciation: ["ça̠"],
+        readings: {
+            en: ["hya"],
+            vn: ["hia"],
+            my: ["hya"]
+        },
+    },
+    {
+        word: "ひゅ",
+        ipa_pronunciation: ["çɯᵝ", "çu̥"],
+        readings: {
+            en: ["hyu"],
+            vn: ["hiu"],
+            my: ["hyu"]
+        },
+    },
+    {
+        word: "ひょ",
+        ipa_pronunciation: ["ço̞"],
+        readings: {
+            en: ["hyo"],
+            vn: ["hio"],
+            my: ["hyo"]
+        },
+    },
+    {
+        word: "みゃ",
+        ipa_pronunciation: ["mja̠"],
+        readings: {
+            en: ["mya"],
+            vn: ["mia"],
+            my: ["mya"]
+        },
+    },
+    {
+        word: "みゅ",
+        ipa_pronunciation: ["mjɯᵝ", "mju̥"],
+        readings: {
+            en: ["myu"],
+            vn: ["miu"],
+            my: ["myu"]
+        },
+    },
+    {
+        word: "みょ",
+        ipa_pronunciation: ["mjo̞"],
+        readings: {
+            en: ["myo"],
+            vn: ["mio"],
+            my: ["myo"]
+        },
+    },
+    {
+        word: "りゃ",
+        ipa_pronunciation: ["ɾʲa̠"],
+        readings: {
+            en: ["rya"],
+            vn: ["lia"],
+            my: ["rya"]
+        },
+    },
+    {
+        word: "りゅ",
+        ipa_pronunciation: ["ɾʲɯᵝ", "ɾʲu̥"],
+        readings: {
+            en: ["ryu"],
+            vn: ["liu"],
+            my: ["ryu"]
+        },
+    },
+    {
+        word: "りょ",
+        ipa_pronunciation: ["ɾʲo̞"],
+        readings: {
+            en: ["ryo"],
+            vn: ["lio"],
+            my: ["ryo"]
+        },
+    },
+    {
+        word: "ぎゃ",
+        ipa_pronunciation: ["ɡʲa̠"],
+        readings: {
+            en: ["gya"],
+            vn: ["gia"],
+            my: ["gya"]
+        },
+    },
+    {
+        word: "ぎゅ",
+        ipa_pronunciation: ["ɡʲɯᵝ", "ɡʲu̥"],
+        readings: {
+            en: ["gyu"],
+            vn: ["giu"],
+            my: ["gyu"]
+        },
+    },
+    {
+        word: "ぎょ",
+        ipa_pronunciation: ["ɡʲo̞"],
+        readings: {
+            en: ["gyo"],
+            vn: ["gio"],
+            my: ["gyo"]
+        },
+    },
+    {
+        word: "じゃ",
+        ipa_pronunciation: ["ʑa̠"],
+        readings: {
+            en: ["ja"],
+            vn: ["dza"],
+            my: ["ja"]
+        },
+    },
+    {
+        word: "じゅ",
+        ipa_pronunciation: ["ʑɯᵝ", "ʑu̥"],
+        readings: {
+            en: ["ju"],
+            vn: ["dzư"],
+            my: ["ju"]
+        },
+    },
+    {
+        word: "じょ",
+        ipa_pronunciation: ["ʑo̞"],
+        readings: {
+            en: ["jo"],
+            vn: ["dzo"],
+            my: ["jo"]
+        },
+    },
+    {
+        word: "びゃ",
+        ipa_pronunciation: ["bʲa̠"],
+        readings: {
+            en: ["bya"],
+            vn: ["bia"],
+            my: ["bya"]
+        },
+    },
+    {
+        word: "びゅ",
+        ipa_pronunciation: ["bʲɯᵝ", "bʲu̥"],
+        readings: {
+            en: ["byu"],
+            vn: ["biu"],
+            my: ["byu"]
+        },
+    },
+    {
+        word: "びょ",
+        ipa_pronunciation: ["bʲo̞"],
+        readings: {
+            en: ["byo"],
+            vn: ["bio"],
+            my: ["byo"]
+        },
+    },
+    {
+        word: "ぴゃ",
+        ipa_pronunciation: ["pʲa̠"],
+        readings: {
+            en: ["pya"],
+            vn: ["pia"],
+            my: ["pya"]
+        },
+    },
+    {
+        word: "ぴゅ",
+        ipa_pronunciation: ["pʲɯᵝ", "pʲu̥"],
+        readings: {
+            en: ["pyu"],
+            vn: ["piu"],
+            my: ["pyu"]
+        },
+    },
+    {
+        word: "ぴょ",
+        ipa_pronunciation: ["pʲo̞"],
+        readings: {
+            en: ["pyo"],
+            vn: ["pio"],
+            my: ["pyo"]
+        },
+    },
     {
         word: "ア",
         ipa_pronunciation: ["a̠"],
@@ -828,6 +1122,303 @@ const data = [
             en: ["n/m/ng"],
             vn: ["n/m/ng"],
             my: ["n/m/ng"]
+        },
+    },
+    {
+        word: "キャ",
+        ipa_pronunciation: ["kʲa̠"],
+        readings: {
+            en: ["kya"],
+            vn: ["kyă"],
+            my: ["kya"]
+        },
+    },
+    {
+        word: "キュ",
+        ipa_pronunciation: ["kʲɯᵝ", "kʲu̥"],
+        readings: {
+            en: ["kyu"],
+            vn: ["kyư"],
+            my: ["kyu"]
+        },
+    },
+    {
+        word: "キョ",
+        ipa_pronunciation: ["kʲo̞"],
+        readings: {
+            en: ["kyo"],
+            vn: ["kyô"],
+            my: ["kyo"]
+        },
+    },
+    {
+        word: "シャ",
+        ipa_pronunciation: ["ɕa̠"],
+        readings: {
+            en: ["sha"],
+            vn: ["sá"],
+            my: ["sya"]
+        },
+    },
+    {
+        word: "シュ",
+        ipa_pronunciation: ["ɕɯᵝ", "ɕu̥"],
+        readings: {
+            en: ["shu"],
+            vn: ["su"],
+            my: ["shu"]
+        },
+    },
+    {
+        word: "ショ",
+        ipa_pronunciation: ["ɕo̞"],
+        readings: {
+            en: ["sho"],
+            vn: ["so"],
+            my: ["sho"]
+        },
+    },
+    {
+        word: "チャ",
+        ipa_pronunciation: ["tɕa̠"],
+        readings: {
+            en: ["cha"],
+            vn: ["chà"],
+            my: ["cha"]
+        },
+    },
+    {
+        word: "チュ",
+        ipa_pronunciation: ["tɕɯᵝ", "tɕu̥"],
+        readings: {
+            en: ["chu"],
+            vn: ["chư"],
+            my: ["chu"]
+        },
+    },
+    {
+        word: "チョ",
+        ipa_pronunciation: ["tɕo̞"],
+        readings: {
+            en: ["cho"],
+            vn: ["chô"],
+            my: ["cho"]
+        },
+    },
+    {
+        word: "ニャ",
+        ipa_pronunciation: ["ɲa̠"],
+        readings: {
+            en: ["nya"],
+            vn: ["nhă"],
+            my: ["nya"]
+        },
+    },
+    {
+        word: "ニュ",
+        ipa_pronunciation: ["ɲɯᵝ", "ɲu̥"],
+        readings: {
+            en: ["nyu"],
+            vn: ["như"],
+            my: ["nyu"]
+        },
+    },
+    {
+        word: "ニョ",
+        ipa_pronunciation: ["ɲo̞"],
+        readings: {
+            en: ["nyo"],
+            vn: ["nhô"],
+            my: ["nyo"]
+        },
+    },
+    {
+        word: "ヒャ",
+        ipa_pronunciation: ["ça̠"],
+        readings: {
+            en: ["hya"],
+            vn: ["hia"],
+            my: ["hya"]
+        },
+    },
+    {
+        word: "ヒュ",
+        ipa_pronunciation: ["çɯᵝ", "çu̥"],
+        readings: {
+            en: ["hyu"],
+            vn: ["hiu"],
+            my: ["hyu"]
+        },
+    },
+    {
+        word: "ヒョ",
+        ipa_pronunciation: ["ço̞"],
+        readings: {
+            en: ["hyo"],
+            vn: ["hio"],
+            my: ["hyo"]
+        },
+    },
+    {
+        word: "ミャ",
+        ipa_pronunciation: ["mja̠"],
+        readings: {
+            en: ["mya"],
+            vn: ["mia"],
+            my: ["mya"]
+        },
+    },
+    {
+        word: "ミュ",
+        ipa_pronunciation: ["mjɯᵝ", "mju̥"],
+        readings: {
+            en: ["myu"],
+            vn: ["miu"],
+            my: ["myu"]
+        },
+    },
+    {
+        word: "ミョ",
+        ipa_pronunciation: ["mjo̞"],
+        readings: {
+            en: ["myo"],
+            vn: ["mio"],
+            my: ["myo"]
+        },
+    },
+    {
+        word: "リャ",
+        ipa_pronunciation: ["ɾʲa̠"],
+        readings: {
+            en: ["rya"],
+            vn: ["lia"],
+            my: ["rya"]
+        },
+    },
+    {
+        word: "リュ",
+        ipa_pronunciation: ["ɾʲɯᵝ", "ɾʲu̥"],
+        readings: {
+            en: ["ryu"],
+            vn: ["liu"],
+            my: ["ryu"]
+        },
+    },
+    {
+        word: "リョ",
+        ipa_pronunciation: ["ɾʲo̞"],
+        readings: {
+            en: ["ryo"],
+            vn: ["lio"],
+            my: ["ryo"]
+        },
+    },
+    {
+        word: "ギャ",
+        ipa_pronunciation: ["ɡʲa̠"],
+        readings: {
+            en: ["gya"],
+            vn: ["gia"],
+            my: ["gya"]
+        },
+    },
+    {
+        word: "ギュ",
+        ipa_pronunciation: ["ɡʲɯᵝ", "ɡʲu̥"],
+        readings: {
+            en: ["gyu"],
+            vn: ["giu"],
+            my: ["gyu"]
+        },
+    },
+    {
+        word: "ギョ",
+        ipa_pronunciation: ["ɡʲo̞"],
+        readings: {
+            en: ["gyo"],
+            vn: ["gio"],
+            my: ["gyo"]
+        },
+    },
+    {
+        word: "ジャ",
+        ipa_pronunciation: ["ʑa̠"],
+        readings: {
+            en: ["ja"],
+            vn: ["dza"],
+            my: ["ja"]
+        },
+    },
+    {
+        word: "ジュ",
+        ipa_pronunciation: ["ʑɯᵝ", "ʑu̥"],
+        readings: {
+            en: ["ju"],
+            vn: ["dzư"],
+            my: ["ju"]
+        },
+    },
+    {
+        word: "ジョ",
+        ipa_pronunciation: ["ʑo̞"],
+        readings: {
+            en: ["jo"],
+            vn: ["dzo"],
+            my: ["jo"]
+        },
+    },
+    {
+        word: "ビャ",
+        ipa_pronunciation: ["bʲa̠"],
+        readings: {
+            en: ["bya"],
+            vn: ["bia"],
+            my: ["bya"]
+        },
+    },
+    {
+        word: "ビュ",
+        ipa_pronunciation: ["bʲɯᵝ", "bʲu̥"],
+        readings: {
+            en: ["byu"],
+            vn: ["biu"],
+            my: ["byu"]
+        },
+    },
+    {
+        word: "ビョ",
+        ipa_pronunciation: ["bʲo̞"],
+        readings: {
+            en: ["byo"],
+            vn: ["bio"],
+            my: ["byo"]
+        },
+    },
+    {
+        word: "ピャ",
+        ipa_pronunciation: ["pʲa̠"],
+        readings: {
+            en: ["pya"],
+            vn: ["pia"],
+            my: ["pya"]
+        },
+    },
+    {
+        word: "ピュ",
+        ipa_pronunciation: ["pʲɯᵝ", "pʲu̥"],
+        readings: {
+            en: ["pyu"],
+            vn: ["piu"],
+            my: ["pyu"]
+        },
+    },
+    {
+        word: "ピョ",
+        ipa_pronunciation: ["pʲo̞"],
+        readings: {
+            en: ["pyo"],
+            vn: ["pio"],
+            my: ["pyo"]
         },
     }
 ];
