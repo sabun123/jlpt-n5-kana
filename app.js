@@ -1,11 +1,13 @@
-class KanjiGame {
-    constructor(kanjiData) {
-        this.kanjiData = kanjiData;
-        this.currentKanji = null;
+class KanaGame {
+    constructor(kanaData) {
+        this.kanaData = kanaData;
+        this.currentKana = null;
         this.correctReadings = new Set();
         this.selectedReadings = new Set();
+        this.currentLanguage = 'en'; // Default to English readings
         
-        this.kanjiElement = document.getElementById('currentKanji');
+        // Update element IDs to match new kana-focused naming
+        this.kanaElement = document.getElementById('currentKana');
         this.readingsElement = document.getElementById('readings');
         this.successIndicator = document.getElementById('success-indicator');
         this.themeToggle = document.getElementById('themeToggle');
@@ -23,13 +25,13 @@ class KanjiGame {
         this.initializeVoices();
         this.initializeEventListeners();
         this.initializeWordList();
-        this.showNextKanji();
+        this.showNextKana();
 
         // Add ARIA attributes to kanji display
-        this.kanjiElement.setAttribute('role', 'region');
-        this.kanjiElement.setAttribute('aria-label', 'Current kanji character');
+        this.kanaElement.setAttribute('role', 'region');
+        this.kanaElement.setAttribute('aria-label', 'Current kana character');
         this.readingsElement.setAttribute('role', 'group');
-        this.readingsElement.setAttribute('aria-label', 'Kanji readings options');
+        this.readingsElement.setAttribute('aria-label', 'Kana readings options');
     }
 
     initializeEventListeners() {
@@ -81,16 +83,15 @@ class KanjiGame {
 
     initializeWordList() {
         const wordListContainer = document.getElementById('wordList');
-        const totalWords = this.kanjiData.length;
+        const totalWords = this.kanaData.length;
         
         // Add word stats
         const statsDiv = document.createElement('div');
         statsDiv.className = 'word-stats';
-        statsDiv.textContent = `Total Words: ${totalWords}`;
+        statsDiv.textContent = `Total Kana: ${totalWords}`;
         wordListContainer.appendChild(statsDiv);
         
-        // Add words with numbers
-        this.kanjiData.forEach((word, index) => {
+        this.kanaData.forEach((kana, index) => {
             const wordItem = document.createElement('div');
             wordItem.className = 'word-item';
             
@@ -101,16 +102,16 @@ class KanjiGame {
             const contentDiv = document.createElement('div');
             contentDiv.className = 'word-content';
             
-            const kanji = document.createElement('div');
-            kanji.className = 'kanji';
-            kanji.textContent = word.kanji;
+            const kanaChar = document.createElement('div');
+            kanaChar.className = 'kana';
+            kanaChar.textContent = kana.word;
             
-            const english = document.createElement('div');
-            english.className = 'english';
-            english.textContent = word.en;
+            const pronunciation = document.createElement('div');
+            pronunciation.className = 'pronunciation';
+            pronunciation.textContent = kana.ipa_pronunciation.join(', ');
             
-            contentDiv.appendChild(kanji);
-            contentDiv.appendChild(english);
+            contentDiv.appendChild(kanaChar);
+            contentDiv.appendChild(pronunciation);
             
             wordItem.appendChild(numberDiv);
             wordItem.appendChild(contentDiv);
@@ -118,14 +119,15 @@ class KanjiGame {
         });
     }
 
-    getRandomKanji() {
-        return this.kanjiData[Math.floor(Math.random() * this.kanjiData.length)];
+    getRandomKana() {
+        return this.kanaData[Math.floor(Math.random() * this.kanaData.length)];
     }
 
     getAllPossibleReadings() {
-        return this.kanjiData.reduce((acc, kanji) => {
-            kanji.readings.onyomi.forEach(reading => acc.add(reading));
-            kanji.readings.kunyomi.forEach(reading => acc.add(reading));
+        return this.kanaData.reduce((acc, kana) => {
+            // Get readings for current language
+            const readings = kana.readings[this.currentLanguage] || [];
+            readings.forEach(reading => acc.add(reading));
             return acc;
         }, new Set());
     }
@@ -137,36 +139,34 @@ class KanjiGame {
         return shuffled.slice(0, count);
     }
 
-    async showNextKanji() {
-        const previousKanji = this.currentKanji;
-        this.currentKanji = this.getRandomKanji();
-        this.correctReadings = new Set([
-            ...this.currentKanji.readings.onyomi,
-            ...this.currentKanji.readings.kunyomi
-        ]);
+    async showNextKana() {
+        const previousKana = this.currentKana;
+        this.currentKana = this.getRandomKana();
+        // Set correct readings from current language
+        this.correctReadings = new Set(this.currentKana.readings[this.currentLanguage]);
         this.selectedReadings = new Set();
         
         // Animate out current kanji
-        if (previousKanji) {
-            this.kanjiElement.classList.add('kanji-exit');
+        if (previousKana) {
+            this.kanaElement.classList.add('kana-exit');
             await new Promise(r => setTimeout(r, 300));
         }
 
         // Update content
-        this.kanjiElement.textContent = this.currentKanji.kanji;
+        this.kanaElement.textContent = this.currentKana.word;
         const translationElement = document.getElementById('translation');
-        translationElement.textContent = this.currentKanji.en; // Changed from meaning to en
-        this.kanjiElement.setAttribute('aria-label', 
-            `Current kanji: ${this.currentKanji.kanji}, meaning: ${this.currentKanji.en}`); // Changed here too
+        translationElement.textContent = this.currentKana.ipa_pronunciation.join(', ');
+        this.kanaElement.setAttribute('aria-label', 
+            `Current kana: ${this.currentKana.word}, IPA: ${this.currentKana.ipa_pronunciation.join(', ')}`);
         
         this.successIndicator.classList.add('hidden');
         
         this.displayReadingOptions();
 
         // Animate in new kanji
-        this.kanjiElement.classList.add('kanji-enter');
+        this.kanaElement.classList.add('kana-enter');
         requestAnimationFrame(() => {
-            this.kanjiElement.classList.remove('kanji-exit', 'kanji-enter');
+            this.kanaElement.classList.remove('kana-exit', 'kana-enter');
         });
     }
 
@@ -178,37 +178,18 @@ class KanjiGame {
     
         this.readingsElement.innerHTML = '';
         
-        // Create separate containers for onyomi and kunyomi
-        const onyomiReadings = allReadings.filter(reading => 
-            reading.match(/[ァ-ン]/)); // Check for katakana
-        const kunyomiReadings = allReadings.filter(reading => 
-            reading.match(/[ぁ-ん]/)); // Check for hiragana
-    
-        // Sort readings to ensure consistent layout
-        onyomiReadings.sort();
-        kunyomiReadings.sort();
-        
-        // Combine them back maintaining the separation
-        const organizedReadings = [...onyomiReadings, ...kunyomiReadings];
-    
-        organizedReadings.forEach((reading, index) => {
+        allReadings.forEach((reading, index) => {
             const button = document.createElement('button');
             button.className = 'reading-option';
             
-            // Wrap text in span for hover scaling
             const textSpan = document.createElement('span');
             textSpan.textContent = reading;
             textSpan.style.display = 'inline-block';
             textSpan.style.transition = 'transform 0.3s ease';
             button.appendChild(textSpan);
             
-            const readingType = reading.match(/[ァ-ン]/) ? 'onyomi' : 'kunyomi';
-            button.dataset.readingType = readingType;
-            
-            // Add accessibility attributes
             button.setAttribute('role', 'button');
-            button.setAttribute('aria-label', 
-                `${readingType} reading: ${reading}`);
+            button.setAttribute('aria-label', `Reading: ${reading}`);
             
             // Add keyboard handling
             button.addEventListener('keydown', (e) => {
@@ -313,10 +294,10 @@ class KanjiGame {
                 this.successIndicator.classList.remove('hidden');
                 this.successIndicator.classList.add('visible');
                 this.successIndicator.setAttribute('role', 'alert');
-                this.successIndicator.setAttribute('aria-label', 'Correct! Moving to next kanji');
+                this.successIndicator.setAttribute('aria-label', 'Correct! Moving to next kana');
                 setTimeout(() => {
                     this.successIndicator.classList.remove('visible');
-                    this.showNextKanji();
+                    this.showNextKana();
                 }, 1000);
             }
         } else {
@@ -332,5 +313,5 @@ class KanjiGame {
 
 // Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new KanjiGame(kanjiData);
+    new KanaGame(data);
 });
