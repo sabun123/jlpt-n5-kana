@@ -34,6 +34,12 @@ class KanaGame {
         this.kanaElement.setAttribute('aria-label', 'Current kana character');
         this.readingsElement.setAttribute('role', 'group');
         this.readingsElement.setAttribute('aria-label', 'Kana readings options');
+
+        // Preload audio files
+        this.audioCache = new Map();
+        // this.preloadAudio(); // for now we don't do this as we don't have any audio files
+
+        this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     initializeEventListeners() {
@@ -252,46 +258,82 @@ class KanaGame {
     }
 
     getBestJapaneseVoice() {
-        // First, try to find a male Japanese voice
-        const maleJapaneseVoice = this.voices.find(voice => 
-            (voice.lang.includes('ja-JP') || voice.lang.includes('ja')) &&
-            voice.name.toLowerCase().includes('male')
+        const preferredJapaneseVoices = [
+            'Google じゃぱりちほー',  // Chrome Japanese voice
+            'Microsoft Nanami',     // Windows Japanese voice
+            'Microsoft Ayumi',      // Windows Japanese voice
+            'Kyoko',               // macOS/iOS Japanese voice
+            'Otoya',               // Japanese voice
+            'Google 日本語',        // Chrome Japanese voice
+        ];
+
+        // Try to find preferred Japanese voices first
+        for (const voiceName of preferredJapaneseVoices) {
+            const voice = this.voices.find(v => v.name.includes(voiceName));
+            if (voice) return voice;
+        }
+
+        // Try any Japanese voice
+        const japaneseVoice = this.voices.find(voice => 
+            voice.lang.includes('ja') || voice.lang.includes('ja-JP')
         );
-        
-        if (maleJapaneseVoice) return maleJapaneseVoice;
+        if (japaneseVoice) return japaneseVoice;
 
-        // Next, try to find a Microsoft Japanese voice (generally higher quality)
-        const microsoftJapaneseVoice = this.voices.find(voice =>
-            (voice.lang.includes('ja-JP') || voice.lang.includes('ja')) &&
-            voice.name.includes('Microsoft')
-        );
+        if (this.isMobile) {
+            // iOS Safari specific handling
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                return this.voices.find(voice => 
+                    voice.lang.includes('ja') || voice.name === 'Kyoko'
+                );
+            }
 
-        if (microsoftJapaneseVoice) return microsoftJapaneseVoice;
+            // Android specific handling
+            return this.voices.find(voice =>
+                (voice.lang.includes('ja') && 
+                (voice.name.includes('Chrome') || voice.name.includes('Samsung')))
+            );
+        }
 
-        // Finally, fall back to any Japanese voice
-        const anyJapaneseVoice = this.voices.find(voice =>
-            voice.lang.includes('ja-JP') || voice.lang.includes('ja')
-        );
+        // Last resort: return any available voice
+        return this.voices[0];
+    }
 
-        return anyJapaneseVoice;
+    preloadAudio() {
+        this.kanaData.forEach(kana => {
+            const audio = new Audio(`audio/${kana.word}.mp3`);
+            this.audioCache.set(kana.word, audio);
+        });
     }
 
     async playKana(kana) {
+        // Use cached audio instead of speech synthesis
+        const audio = this.audioCache.get(kana);
+        if (audio) {
+            try {
+                audio.currentTime = 0; // Reset to start
+                await audio.play();
+            } catch (error) {
+                console.error('Audio playback failed:', error);
+                // Improved fallback speech synthesis
+                await this.playFallbackSpeech(kana);
+            }
+        } else {
+            await this.playFallbackSpeech(kana);
+        }
+    }
+
+    async playFallbackSpeech(kana) {
         if (!window.speechSynthesis) {
             console.error('Speech synthesis not supported');
             return;
         }
 
-        // Cancel any ongoing speech
         window.speechSynthesis.cancel();
-
         const utterance = new SpeechSynthesisUtterance(kana);
         utterance.lang = 'ja-JP';
-        
-        // Optimize voice settings for better quality
-        utterance.rate = 0.8;    // Slower for clearer pronunciation
-        utterance.pitch = 1.0;   
-        utterance.volume = 1.0;  
+        utterance.rate = 0.8;      // Slightly slower for clearer pronunciation
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
 
         const bestVoice = this.getBestJapaneseVoice();
         if (bestVoice) {

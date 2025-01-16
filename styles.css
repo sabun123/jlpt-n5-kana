@@ -85,24 +85,26 @@ body.dark-mode #themeToggle {
 
 /* Replace .kanji-display with .kana-display */
 .kana-display {
-    margin: 60px 0;
     min-height: 300px;
     display: flex;
+    flex-direction: column; /* Add this to stack elements vertically */
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: relative; /* Ensure this is here for absolute positioning */
     text-align: center;
-    margin: 2rem 0;
+    margin: 2rem 0; /* Remove duplicate margin declaration */
+    width: 100%; /* Ensure full width */
 }
 
 /* Replace #currentKanji with #currentKana */
 #currentKana {
     font-size: clamp(120px, 20vw, 280px);
-    margin: 40px 0;
+    margin: 0; /* Remove margin to prevent spacing issues */
     line-height: 1.2;
     animation: fadeIn 0.5s ease-in-out;
     font-size: 8rem;
     transition: transform 0.3s ease-in-out;
+    position: relative; /* Add this */
 }
 
 /* Update animation names */
@@ -193,7 +195,7 @@ body.dark-mode .reading-option.incorrect,
 }
 
 #success-indicator {
-    font-size: clamp(120px, 20vw, 280px); /* Match kanji size */
+    font-size: clamp(120px, 20vw, 280px);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -201,7 +203,9 @@ body.dark-mode .reading-option.incorrect,
     z-index: 2;
     color: var(--correct-color);
     opacity: 0;
-    line-height: 1; /* Ensure proper vertical centering */
+    line-height: 1;
+    pointer-events: none; /* Add this to prevent interference */
+    margin: 0; /* Add this to prevent any margin interference */
 }
 
 #success-indicator.visible {
@@ -537,6 +541,7 @@ body.dark-mode .reading-option.incorrect,
     }
 
     .kana-display {
+        min-height: 120px;
         margin: 0;  /* Remove margins on mobile */
     }
 }
